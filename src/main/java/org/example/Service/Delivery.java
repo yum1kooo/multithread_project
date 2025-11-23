@@ -40,6 +40,7 @@ public class Delivery {
     }
 
     public synchronized void processingOrders() throws InterruptedException {
+
             try {
                 Thread.sleep(600);
             } catch (InterruptedException e) {
@@ -57,6 +58,7 @@ public class Delivery {
                 System.out.println("ADMIN - Заказ обработан " + user.getId());
 
                 notify();
+
     }
 
     public Integer getSizeQueue(){
