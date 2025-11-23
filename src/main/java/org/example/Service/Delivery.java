@@ -31,37 +31,40 @@ public class Delivery {
                 throw new RuntimeException(e);
             }
 
+            //while (queue.size() == 10){
+            //    wait();
+            //}
+
             User newUserForOrder = new User();
             boolean added = queue.offer(newUserForOrder);
             if (!added) {
-                System.out.println("Достигнуто МАКСИМАЛЬНОЕ КОЛ-ВО ЗАКАЗОВ.Предзаказ закрыт");
+                System.out.println("Достигнуто МАКСИМАЛЬНОЕ КОЛ-ВО ЗАКАЗОВ. Предзаказ закрыт");
             } else {
                 System.out.println("USER - Пользователь " + newUserForOrder.getId() + " хочет оплатить заказ");
             }
 
     }
 
-    public void processingOrders(){
+    public void processingOrders() throws InterruptedException {
             try {
                 Thread.sleep(600);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        User user = queue.poll();
-        try {
+            User user = queue.poll();
+
+            try {
                 System.out.println("ADMIN - Пришел новый заказ! ID "  + user.getId());
             } catch (Exception e) {
-                System.out.println("Нету новых заказов");
+                System.out.println("ADMIN - Нету новых заказов");
             }
-            try {
                 System.out.println("ADMIN - Обрабатываю заказ ID " +  user.getId());
                 System.out.println("ADMIN - Заказ обработан " + user.getId());
-            } catch (Exception e) {
-                System.out.println("ADMIN - Заказ не найден");
-            }
+
     }
 
-
-
+    public Integer getSize(){
+        return queue.size();
+    }
 }
 

@@ -17,12 +17,12 @@ public class Shop {
         Delivery delivery = Delivery.getInstance();
         ServiceLogic serviceLogic = new ServiceLogic();
         ExecutorService executor = Executors.newFixedThreadPool(100);
-        Semaphore semaphore = new Semaphore(4);
+        Semaphore semaphore = new Semaphore(15);
         serviceLogic.firtsInit(bank, delivery);
 
         Random random = new Random();
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 15; i++) {
             executor.submit(new Runnable() {
                 public void run() {
                     try {
@@ -38,7 +38,7 @@ public class Shop {
         }
 
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 15; i++) {
             executor.submit(new Runnable() {
                 public void run() {
                     try {
@@ -53,6 +53,7 @@ public class Shop {
             });
 
         }
-            executor.shutdown();
+
+        executor.shutdown();
     }
 }
