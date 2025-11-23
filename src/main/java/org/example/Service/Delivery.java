@@ -2,6 +2,7 @@ package org.example.Service;
 
 import org.example.User.User;
 
+import java.util.Random;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
@@ -37,9 +38,10 @@ public class Delivery {
                 System.out.println("USER - Пользователь " + newUserForOrder.getId() + " хочет оплатить заказ");
             }
 
+
     }
 
-    public synchronized void processingOrders() throws InterruptedException {
+    public synchronized void processingOrders(int orderCoast) throws InterruptedException {
 
             try {
                 Thread.sleep(600);
@@ -48,13 +50,20 @@ public class Delivery {
             }
             User user = queue.poll();
 
-
             try {
                 System.out.println("ADMIN - Пришел новый заказ! ID "  + user.getId());
             } catch (Exception e) {
                 System.out.println("ADMIN - Нету новых заказов");
             }
+
                 System.out.println("ADMIN - Обрабатываю заказ ID " +  user.getId());
+
+            if(user.getBalance() < orderCoast){ // метод для разнообразия тк в любом случае все пользователи при обработки уходят из очереди а по тк надо было проверить
+                System.out.println("Недостаточно средств у " + user.getId());
+                System.out.println("Заказ не выдан ID " + user.getId());
+                return;
+            }
+
                 System.out.println("ADMIN - Заказ обработан " + user.getId());
 
                 notify();

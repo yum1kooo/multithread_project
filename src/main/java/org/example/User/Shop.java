@@ -42,7 +42,7 @@ public class Shop {
                 public void run() {
                     try {
                         semaphore.acquire();
-                        delivery.processingOrders();
+                        delivery.processingOrders(serviceLogic.getOrderCoast());
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     } finally {
@@ -59,6 +59,6 @@ public class Shop {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(delivery.getSizeQueue());
+        System.out.println("LOG - queue size is " + delivery.getSizeQueue());
     }
 }

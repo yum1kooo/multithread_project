@@ -1,6 +1,6 @@
 package org.example.User;
 
-import java.util.Arrays;
+
 import java.util.Random;
 
 public class User {
@@ -26,6 +26,7 @@ public class User {
         this.name =  names[rand.nextInt(names.length)];
         this.balance = rand.nextInt(1_000_000);
     }
+
 
 
     public int getId() {

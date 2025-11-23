@@ -1,5 +1,7 @@
 package org.example.Service;
 
+import java.util.Random;
+
 public class Bank {
     private static Bank INSTANCE_BANK;
 
@@ -14,5 +16,11 @@ public class Bank {
             }
         }
         return INSTANCE_BANK;
+    }
+
+
+    public boolean getPaymentById(int id){
+        Random rand = new Random();
+        return rand.nextBoolean();
     }
 }
