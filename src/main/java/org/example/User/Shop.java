@@ -38,7 +38,7 @@ public class Shop {
         }
 
 
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < delivery.getSizeQueue(); i++) {
             executor.submit(new Runnable() {
                 public void run() {
                     try {
