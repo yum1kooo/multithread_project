@@ -24,7 +24,7 @@ public class Shop {
         for (int i = 0; i < 4; i++) {
             executor.submit(new Runnable() {
                 public void run() {
-                    delivery.generateNewOrders(random.nextInt(100));
+                    delivery.generateNewOrders();
                 }
             });
         }

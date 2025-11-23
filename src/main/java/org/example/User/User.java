@@ -1,5 +1,6 @@
 package org.example.User;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class User {
@@ -20,7 +21,7 @@ public class User {
     };
     Random rand = new Random();
 
-    public User(int id, String name, double balance) {
+    public User() {
         this.id = rand.nextInt(50);
         this.name =  names[rand.nextInt(names.length)];
         this.balance = rand.nextInt(1_000_000);
@@ -51,5 +52,10 @@ public class User {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    @Override
+    public String toString() {
+        return "" + id;
     }
 }
