@@ -8,7 +8,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 
 public class Delivery {
     private static Delivery INSTANCE;
-    BlockingDeque<User> queue = new LinkedBlockingDeque<>();
+    BlockingDeque<User> queue = new LinkedBlockingDeque<>(30);
     private Delivery() {}
     User user = new User();
 
@@ -25,38 +25,40 @@ public class Delivery {
 
 
     public void generateNewOrders(){
-        while (true) {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+
             User newUserForOrder = new User();
-            System.out.println("USER - Пользователь " + newUserForOrder.getId() + " хочет оплатить заказ");
-            queue.offer(newUserForOrder);
-        }
+            boolean added = queue.offer(newUserForOrder);
+            if (!added) {
+                System.out.println("Достигнуто МАКСИМАЛЬНОЕ КОЛ-ВО ЗАКАЗОВ.Предзаказ закрыт");
+            } else {
+                System.out.println("USER - Пользователь " + newUserForOrder.getId() + " хочет оплатить заказ");
+            }
+
     }
 
     public void processingOrders(){
-        while (true) {
             try {
                 Thread.sleep(600);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-
-            try {
-                System.out.println("ADMIN - Пришел новый заказ! ID "  + queue.element().getId());
+        User user = queue.poll();
+        try {
+                System.out.println("ADMIN - Пришел новый заказ! ID "  + user.getId());
             } catch (Exception e) {
                 System.out.println("Нету новых заказов");
             }
             try {
-                System.out.println("ADMIN - Обрабатываю заказ ID " +  queue.remove().getId());
-                System.out.println("ADMIN - Заказ обработан текущая очередь " + queue.size());
+                System.out.println("ADMIN - Обрабатываю заказ ID " +  user.getId());
+                System.out.println("ADMIN - Заказ обработан " + user.getId());
             } catch (Exception e) {
                 System.out.println("ADMIN - Заказ не найден");
             }
-        }
     }
 
 
